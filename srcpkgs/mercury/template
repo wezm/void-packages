@@ -1,0 +1,155 @@
+# Template file for 'mercury'
+pkgname=mercury
+version=rotd20180319
+_mercury_dist_version=rotd-2018-03-19
+revision=1
+wrksrc="mercury-srcdist-${_mercury_dist_version}"
+hostmakedepends="flex bison"
+makedepends="libffi-devel ncurses-devel libxml2-devel zlib-devel llvm"
+depends="gcc make"
+short_desc="The mercury language compiler."
+maintainer="Wesley Moore <wes@wezm.net>"
+license="GPL"
+homepage="http://www.mercurylang.org/"
+distfiles="https://github.com/Mercury-Language/mercury-srcdist/archive/${_mercury_dist_version}.tar.gz"
+checksum=d9a5557923ff37f182e3e68bda79159da4fac50601f0ff971578034a36b2ec8c
+#lib32disabled=yes
+#patch_args="-Np1"
+nostrip=yes
+
+#build_options="static_llvm"
+
+#_bootstrap_dir="stage0-bootstrap"
+
+# if [ "$CROSS_BUILD" ]; then
+# 	hostmakedepends+=" cargo llvm"
+# 	# These are required for building the buildhost's stage0/1
+# 	hostmakedepends+=" libffi-devel libxml2-devel ncurses-devel zlib-devel"
+# else
+# 	_bootstrap_url="https://static.rust-lang.org/dist"
+# 
+# 	case "$XBPS_MACHINE" in
+# 		x86_64*|i686|ppc64le|ppc) ;;
+# 		ppc*) _bootstrap_url="https://alpha.de.repo.voidlinux.org/distfiles" ;;
+# 		*) broken="unsupported host: ${XBPS_MACHINE}" ;;
+# 	esac
+# 
+# 	distfiles+="
+# 	 ${_bootstrap_url}/rustc-${_rust_dist_version}-${RUST_BUILD}.tar.xz
+# 	 ${_bootstrap_url}/rust-std-${_rust_dist_version}-${RUST_BUILD}.tar.xz
+# 	 ${_bootstrap_url}/cargo-${_cargo_dist_version}-${RUST_BUILD}.tar.xz"
+# 
+# 	# checksums must be specified per arch
+# 	case "$XBPS_MACHINE" in
+# 		i686)
+# 			checksum+="
+# 			 ad86a75cc8a02a0129df480ccb28082985215f4b5558a42881777691ae1d3ff3
+# 			 a78f7bdbce0a960f3334c6c639cbe96f05b9b74df26cda9a5161834098119217
+# 			 6835a73e2ce17e11eda5393133dd7c78bc41bae5a09784e5327648f14340fd48"
+# 			;;
+# 		x86_64)
+# 			checksum+="
+# 			 fff0158da6f5af2a89936dc3e0c361077c06c2983eb310615e02f81ebbde1416
+# 			 ce8e12684b568a8a4f7d346a743383429849cf3f028f5712ad3d3e31590c8db3
+# 			 d20fa121951339d5492cf8862f8a7af59efc99d18f3c27b95ab6d4658b6a7d67"
+# 			;;
+# 		x86_64-musl)
+# 			checksum+="
+# 			 04c15e34bdfd17136b924baa4f93cfbfe64739964b57f5a13ada8e91f9239076
+# 			 70d0cc38cc829603c81812c59435ef85456a93962bea20deb12f0634e87fbaf7
+# 			 53975d91e11569f2255d8e30176f05f6976cd810725197a527b0e7ad547ca70c"
+# 			;;
+# 		ppc64le)
+# 			checksum+="
+# 			 702818334ed9f01f60a433aa424784ec9b3785826cdaf03b0f69d03aded98df6
+# 			 db7a9a06b8b1b84d6fe10bc1e2e136234e31bfaa77499b9df36e2d441ef1b856
+# 			 4cda7686160f6981e936229703e8e2e756c74f390245f2ad9e356bbbed28a2c9"
+# 			;;
+# 		ppc64le-musl)
+# 			checksum+="
+# 			 e04239f9c0f230249412ca814f2f954e269c9724fe5741d87f6dc76ddaa15251
+# 			 98e8b4e6335bdb8cd387c8681686e20d9aa230bcf16ba0ea7cf3c1818d964425
+# 			 d2690135522db9fdc6efa2f432e5719b8b70abc94e91db278b84be834a75bf72"
+# 			;;
+# 		ppc64)
+# 			checksum+="
+# 			 4328cd52d37df39b78c6223a7a6d07129ef9861efa67dbdadbcfe6c991e0febf
+# 			 800f27805adef749219f9507497dbadebdac2d5c50f951ca1426d4d447e7f318
+# 			 8b2f7d5da611a21dd7e0b4238b9aca6ee32f1e49d8fe831435301f11a29b12de"
+# 			;;
+# 		ppc64-musl)
+# 			checksum+="
+# 			 7cef3f67652607e4f6ed09ff6eb54ee0a7485ae5491a2c015ef9357aadc40295
+# 			 6f2dc455113a12b2f5fcefbda6e225ad568e750b8f900de5d326cf2c05e45ec9
+# 			 131db0127366665b2ae55327155c171e99c2eddfb4bcdd7e5cd2663ada109bd5"
+# 			;;
+# 		ppc)
+# 			checksum+="
+# 			 6c47ae44afc4567fd5584ff8f23c6d0ee1680e66b2ce91cc891571e973097a99
+# 			 b22c7104c1bea83aef920140a25be974c3e08dd600431901346908916be46f43
+# 			 856fcb63f6ebeab67038fe3fc96ee0911353b1ee19cabcb0496c7d419de0d531"
+# 			;;
+# 		ppc-musl)
+# 			checksum+="
+# 			 181c81346bc75d6316d08efa242f49c3d3e70fa0c480e673c9bc7209c63ca6e6
+# 			 4449b886359efe7fb39d75a086fc25520730f96932588e120abbf04387ac8aad
+# 			 119dba3538f6c1d1164b720b238acac598e1924d943ebbdf3c7113ec3cbd8a2a"
+# 			;;
+# 	esac
+# fi
+
+# post_extract() {
+#         if [ -z "$CROSS_BUILD" ]; then
+#                 mkdir -p "${wrksrc}/${_bootstrap_dir}"
+#                 ../rust-std-${_rust_dist_version}-${RUST_BUILD}/install.sh \
+#                  --destdir="${wrksrc}/${_bootstrap_dir}" --prefix=/ --disable-ldconfig
+#                 ../rustc-${_rust_dist_version}-${RUST_BUILD}/install.sh \
+#                  --destdir="${wrksrc}/${_bootstrap_dir}" --prefix=/ --disable-ldconfig
+#                 # cargo may not be packaged like the rest
+#                 cp ../cargo-${_cargo_dist_version}-${RUST_BUILD}/cargo/bin/cargo \
+#                  "${wrksrc}/${_bootstrap_dir}/bin"
+#         fi
+# }
+
+do_configure() {
+	./configure --prefix=/usr --mandir=/usr/share/man \
+              --infodir=/usr/share/info \
+              --enable-libgrades=asm_fast.gc,asm_fast.gc.debug.stseg,hlc.gc,hlc.gc.memprof,hlc.gc.prof,hlc.par.gc,asm_fast.gc.profdeep.stseg
+}
+
+do_build() {
+	make PARALLEL="$makejobs"
+}
+
+# do_check() {
+#         export RUST_BACKTRACE=1
+
+#         python3 x.py test ${makejobs} --no-doc --no-fail-fast \
+#                 src/test/codegen \
+#                 src/test/codegen-units \
+#                 src/test/compile-fail \
+#                 src/test/incremental \
+#                 src/test/mir-opt \
+#                 src/test/pretty \
+#                 src/test/run-fail \
+#                 src/test/run-fail/pretty \
+#                 src/test/run-make \
+#                 src/test/run-make-fulldeps \
+#                 src/test/run-pass \
+#                 src/test/run-pass/pretty \
+#                 src/test/run-pass-fulldeps \
+#                 src/test/run-pass-fulldeps/pretty \
+#                 src/test/ui \
+#                 src/test/ui-fulldeps
+# }
+
+do_install() {
+	make INSTALL_PREFIX="$PKGDESTDIR"/usr \
+		INSTALL_MAN_DIR="$PKGDESTDIR"/usr/share/man \
+		INSTALL_INFO_DIR="$PKGDESTDIR"/usr/share/info \
+		MERCURY_COMPILER="$PKGDESTDIR"/usr/bin/mercury_compile \
+		MERCURY_CONFIG_DIR="$PKGDESTDIR"/usr/lib/mercury \
+		PARALLEL="$makejobs" install
+
+	rm "${PKGDESTDIR}"/usr/bin/{mdb,mercury,mprof}.bat
+}
