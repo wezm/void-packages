@@ -1,0 +1,20 @@
+# Template file for 'purescript'
+pkgname=purescript
+version=0.13.3
+revision=2
+build_style=haskell-stack
+make_build_args="--flag purescript:RELEASE"
+hostmakedepends="ghc stack"
+makedepends="ncurses-devel zlib-devel"
+short_desc="Strongly-typed functional programming language that targets JavaScript"
+maintainer="Wesley Moore <wes@wezm.net>"
+license="BSD-3-Clause"
+homepage="http://www.purescript.org/"
+distfiles="https://github.com/purescript/purescript/archive/v${version}.tar.gz"
+checksum=d9742dd6aa167f0e9dd8bf6dcd2b95d02a27158b6a7b430071388feca61ac447
+nopie_files="/usr/bin/purs"
+nocross=yes # Can't yet cross compile Haskell
+
+post_install() {
+	vlicense LICENSE
+}

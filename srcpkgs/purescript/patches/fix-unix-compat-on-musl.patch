@@ -1,0 +1,10 @@
+--- stack.yaml
++++ stack.yaml
+@@ -6,6 +6,7 @@
+ - happy-1.19.9
+ - language-javascript-0.6.0.13
+ - network-3.0.1.1
++- unix-compat-0.5.2
+ nix:
+   enable: false
+   packages:
