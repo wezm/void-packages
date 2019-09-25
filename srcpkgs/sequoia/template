@@ -1,0 +1,20 @@
+# Template file for 'sequoia'
+pkgname=sequoia
+version=0.10.0
+revision=1
+wrksrc="${pkgname}-v${version}"
+build_style=gnu-makefile
+make_use_env=yes
+make_build_args="PREFIX=/usr PYTHON=disable"
+make_install_args="PYTHON=disable"
+make_chack_args="PYTHON=disable"
+make_build_target="build-release"
+hostmakedepends="pkg-config"
+makedepends="cargo nettle-devel capnproto libressl-devel sqlite-devel clang"
+checkdepends="git"
+short_desc="OpenPGP implementation in Rust"
+maintainer="Wesley Moore <wes@wezm.net>"
+license="GPL-3.0-or-later"
+homepage="https://sequoia-pgp.org/"
+distfiles="https://gitlab.com/sequoia-pgp/sequoia/-/archive/v${version}/sequoia-v${version}.tar.bz2"
+checksum=b8c6b50a3025a8f499c4c2fdf2cfaa102e3dabff81c0f390b892a130c08f7a1f
