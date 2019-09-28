@@ -34,6 +34,10 @@ if [ "$build_option_binary_bootstrap" ]; then
 		distfiles+=" https://github.com/crystal-lang/crystal/releases/download/${_bootstrapversion}/crystal-${_bootstrapversion}-${_bootstraprevision}-linux-x86_64.tar.gz"
 		checksum+=" aae60f90c809b480f069c6ae3f8ef54a8753dce5448ee34f1dda0e28c95955cc"
 		;;
+	x86_64-musl)
+		distfiles+=" https://dev.alpinelinux.org/archive/crystal/crystal-${_bootstrapversion}-x86_64-alpine-linux-musl.tar.gz"
+		checksum+=" 528fb31832d875e3a068d3b5b8e6bcc41219deade9ed50bd4e8d46e680e2bfa6"
+		;;
 	i686)
 		distfiles+=" https://github.com/crystal-lang/crystal/releases/download/${_bootstrapversion}/crystal-${_bootstrapversion}-${_bootstraprevision}-linux-i686.tar.gz"
 		checksum+=" 62faf63ccf94b17b1d94d4166a4fadf2a4c36aac553c719bbf5a88e4bc0a586f"
@@ -52,8 +56,16 @@ do_extract() {
 	tar xfz ${XBPS_SRCDISTDIR}/${pkgname}-${version}/${version}.tar.gz --strip-components=1 -C ${wrksrc}
 	tar xfz ${XBPS_SRCDISTDIR}/${pkgname}-${version}/v${_shardsversion}.tar.gz --strip-components=1 -C ${wrksrc}/shards
 	if [ "$build_option_binary_bootstrap" ]; then
-		tar xf ${XBPS_SRCDISTDIR}/${pkgname}-${version}/crystal-${_bootstrapversion}-${_bootstraprevision}-linux-${XBPS_TARGET_MACHINE}.tar.gz \
+		case "$XBPS_MACHINE" in
+		x86_64-musl)
+			tar xf ${XBPS_SRCDISTDIR}/${pkgname}-${version}/crystal-${_bootstrapversion}-x86_64-alpine-linux-musl.tar.gz \
 			--strip-components=1 -C ${wrksrc}/bootstrap
+			;;
+		*)
+			tar xf ${XBPS_SRCDISTDIR}/${pkgname}-${version}/crystal-${_bootstrapversion}-${_bootstraprevision}-linux-${XBPS_TARGET_MACHINE}.tar.gz \
+			--strip-components=1 -C ${wrksrc}/bootstrap
+			;;
+		esac
 	fi
 }
 
